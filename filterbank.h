@@ -13,7 +13,7 @@
  3. FREQUENCY_END header field is omitted
  4. Does not handle folded-filterbank files
 
- It is only designed to be compatible with the AMBER filterbank
+ This filterbank class is compatible with the AMBER filterbank
  reader and the filterbank writer used at the westerbork telecope.
  https://github.com/AA-ALERT/dadafilterbank/blob/master/filterbank.c
 
