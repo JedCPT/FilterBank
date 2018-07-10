@@ -123,7 +123,6 @@ FilterBank<T>::FilterBank(std::string file_name) {
 
     in_file_stream.open(file_name, std::ios::binary | std::ios::ate);
     out_file_stream.open(file_name, std::ios::binary | std::ios::ate| std::ios::app);
-
     // Compute the number of bytes in the header by searching for HEADER_END.
     std::string header_end_identifier("HEADER_END");
     std::string next_string(header_end_identifier.size(), '.');
@@ -207,7 +206,6 @@ void FilterBank<T>::GetSpectra (std::vector<T>& spectra, const size_t start_bin,
 template<typename T>
 void FilterBank<T>::AppendSpectra(std::vector<T>& spectra) {
     size_t bytes_to_write = spectra.size() * sizeof(T);
-    std::cout << spectra.size() << std::endl;
     out_file_stream.write((char*) spectra.data(), bytes_to_write);
 
 }
@@ -229,23 +227,31 @@ void FilterBank<T>::ReadFromHeader(const std::string key, const std::string type
     }
     else {
         int str_len;
+        
+        std::string *sp = static_cast<std::string*>(data);
         std::memcpy(&str_len, &*loc, 4);
-        std::memcpy(data, &*(loc + 4), str_len);
+        sp->resize(str_len);
+        std::memcpy((void*) sp->data(), &*(loc + 4), str_len);
     }
 }
 
 
 
 int main () {
-    FilterBank<uint8_t> f("fake.fil");
-    std::cout << sizeof(uint8_t) << std::endl;
+    FilterBank<uint8_t> f("/home/arts/jed_rfi_tests/data/sky_data_frb_250_seconds.fil");
 
-    CreateFilterBankFile("test.fil", f.header);
+   CreateFilterBankFile("/home/arts/jed_rfi_tests/data/test.fil", f.header);
 
-    FilterBank<uint8_t> ff("test.fil");
-
+    FilterBank<uint8_t> ff("/home/arts/jed_rfi_tests/data/test.fil");
     std::vector<uint8_t> v;
+    while(!f.ReadInSpectraBlock(v)) {
+        ff.AppendSpectra(v);
+    }
 
 
+
+    std::cout << "here" << std::endl;
+    //f.in_file_stream.close();
+    //f.out_file_stream.close(); 
     return 0;
 }

@@ -26,6 +26,11 @@
 #include <fstream>
 #include <vector>
 #include <iostream>
+#include <typeinfo>
+#include <stdexcept>
+#include <cstring>
+#include <algorithm>
+
 
 
 // Filterbank header from page 4 of http://sigproc.sourceforge.net/sigproc.pdf,
