@@ -7,4 +7,5 @@ An issue with the Filterbank standard is that people don't adhere to it. Often f
 header.AddField("nbeams", FilterbankHeader::DataType::INT);
 header.AddField("ibeams", FilterbankHeader::DataType::INT);
 ```
+See main.cpp for example usage.
 
