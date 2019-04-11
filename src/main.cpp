@@ -14,7 +14,7 @@
 int main(int argc, char const *argv[])
 {
     // Open filterbank file.
-    FilterBank<uint8_t> file("example.fil");
+    Filterbank<uint8_t> file("example.fil");
 
     // Add field to header.
     FilterbankHeader header = file.header;
@@ -22,7 +22,7 @@ int main(int argc, char const *argv[])
     header.AddField("ibeams", FilterbankHeader::DataType::INT);
 
     // Create new filerbank file.
-    FilterBank<uint8_t> out_file("out_example.fil", header);
+    Filterbank<uint8_t> out_file("out_example.fil", header);
     
     // Read first 100 time bins.
     std::vector<uint8_t> spectra;

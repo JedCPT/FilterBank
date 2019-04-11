@@ -15,7 +15,7 @@
 
 
 template <typename T>
-class FilterBank
+class Filterbank
 {
   private:
     // filestreams to the same file.
@@ -35,7 +35,7 @@ class FilterBank
     // ================================================================================
 
     // Create new filterbank file.
-    FilterBank(std::string file_name, FilterbankHeader header) : header(header), nbytes(0), nbins(0), current_bin(0)
+    Filterbank(std::string file_name, FilterbankHeader header) : header(header), nbytes(0), nbins(0), current_bin(0)
     {
         header.WriteHeader(file_name);
         in_file.open(file_name, std::ios::binary | std::ios::ate);
@@ -44,7 +44,7 @@ class FilterBank
     }
 
     // Init filterbank file from filterbank file on disk.
-    FilterBank(std::string file_name) : header(file_name), current_bin(0)
+    Filterbank(std::string file_name) : header(file_name), current_bin(0)
     {
         in_file.open(file_name, std::ios::binary | std::ios::ate);
         out_file.open(file_name, std::ios::binary | std::ios::ate | std::ios::app);
@@ -55,7 +55,7 @@ class FilterBank
     }
 
     // Destructor.
-    ~FilterBank(void)
+    ~Filterbank(void)
     {
         in_file.close();
         out_file.close();
